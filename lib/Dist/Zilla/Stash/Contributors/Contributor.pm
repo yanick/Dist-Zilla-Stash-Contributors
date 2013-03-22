@@ -5,7 +5,6 @@ use strict;
 use warnings;
 
 use Moose;
-use Moose::Util::TypeConstraints;
 
 use overload '""' => \&stringify;
 
