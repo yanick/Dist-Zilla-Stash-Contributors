@@ -1,72 +1,12 @@
-package Dist::Zilla::Stash::Contributors;
-BEGIN {
-  $Dist::Zilla::Stash::Contributors::AUTHORITY = 'cpan:YANICK';
-}
-{
-  $Dist::Zilla::Stash::Contributors::VERSION = '0.1.0';
-}
-# ABSTRACT: Stash containing list of contributors
-
-use strict;
-use warnings;
-
-use Moose;
-
-use Dist::Zilla::Stash::Contributors::Contributor;
-
-has contributors => (
-    traits => [ 'Hash' ],
-    isa => 'HashRef[Dist::Zilla::Stash::Contributors::Contributor]',
-    is => 'ro',
-    default => sub { {} },
-    handles => {
-        _all_contributors => 'values',
-        nbr_contributors => 'count',
-    },
-);
-
-
-sub all_contributors {
-    my $self = shift;
-
-    return sort { $a->stringify cmp $b->stringify } $self->_all_contributors;
-}
-
-
-sub add_contributors {
-    my ( $self, @contributors ) = @_;
-
-    for my $c ( @contributors ) {
-        my $name = $c;
-        my $email;
-        $email = $1 if $name =~ s/\s*<(.*?)>\s*//;
-
-        my $object = Dist::Zilla::Stash::Contributors::Contributor->new( 
-            name => $name, email => $email 
-        );
-
-        $self->contributors->{ $object->stringify } ||= $object;
-    }
-
-}
-
-__PACKAGE__->meta->make_immutable;
-
-1;
-
-__END__
-
-=pod
-
-=head1 NAME
+# NAME
 
 Dist::Zilla::Stash::Contributors - Stash containing list of contributors
 
-=head1 VERSION
+# VERSION
 
 version 0.1.0
 
-=head1 SYNOPSIS
+# SYNOPSIS
 
     my $contrib_stash = $self->zilla->stash_named('%Contributors');
 
@@ -75,11 +15,11 @@ version 0.1.0
         $self->_register_stash('%Contributors', $contrib_stash );
     }
 
-$contrib_stash->add_contributors( 'Yanick Champoux <yanick@cpan.org>' );
+$contrib\_stash->add\_contributors( 'Yanick Champoux <yanick@cpan.org>' );
 
-=head1 DESCRIPTION
+# DESCRIPTION
 
-If you are a L<Dist::Zilla> user, avert your eyes and read no more: this
+If you are a [Dist::Zilla](http://search.cpan.org/perldoc?Dist::Zilla) user, avert your eyes and read no more: this
 module is not for general consumption but for authors of plugins dealing 
 with contributors harvesting or processing.
 
@@ -115,35 +55,33 @@ and plugin that use them:
     }
 
 And that's pretty much all you need to know beside that, internally, each contributor is represented by 
-a L<Dist::Zilla::Stash::Contributors::Contributor> object.
+a [Dist::Zilla::Stash::Contributors::Contributor](http://search.cpan.org/perldoc?Dist::Zilla::Stash::Contributors::Contributor) object.
 
-=head1 METHODS
+# METHODS
 
-=head2 all_contributors()
+## all\_contributors()
 
-Returns all contributors as C<Dist::Zilla::Stash::Contributors::Contributor>
+Returns all contributors as `Dist::Zilla::Stash::Contributors::Contributor`
 objects. The collaborators are sorted alphabetically.
 
-=head2 nbr_contributors()
+## nbr\_contributors()
 
 Returns the number of contributors.
 
-=head2 add_contributors( @contributors )
+## add\_contributors( @contributors )
 
-Adds the C<@contributors> to the stash. Duplicates are filtered out. 
+Adds the `@contributors` to the stash. Duplicates are filtered out. 
 
-Contributors can be L<Dist::Zilla::Stash::Contributors::Contributor> objects
+Contributors can be [Dist::Zilla::Stash::Contributors::Contributor](http://search.cpan.org/perldoc?Dist::Zilla::Stash::Contributors::Contributor) objects
 or strings of the format 'Full Name <email@address.org>'.
 
-=head1 AUTHOR
+# AUTHOR
 
-Yanick Champoux <yanick@cpan.org>
+Yanick Champoux <yanick@cpan.org> [![endorse](http://api.coderwall.com/yanick/endorsecount.png)](http://coderwall.com/yanick)
 
-=head1 COPYRIGHT AND LICENSE
+# COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2013 by Yanick Champoux.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
-=cut

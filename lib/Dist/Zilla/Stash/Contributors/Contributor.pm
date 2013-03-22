@@ -1,4 +1,10 @@
 package Dist::Zilla::Stash::Contributors::Contributor;
+BEGIN {
+  $Dist::Zilla::Stash::Contributors::Contributor::AUTHORITY = 'cpan:YANICK';
+}
+{
+  $Dist::Zilla::Stash::Contributors::Contributor::VERSION = '0.1.0';
+}
 # ABSTRACT: a Contributors stash element
 
 use strict;
@@ -8,19 +14,7 @@ use Moose;
 
 use overload '""' => \&stringify;
 
-=method new( name => $name, email => $address )
 
-Creates a new C<Dist::Zilla::Stash::Contributors::Contributor> object. 
-
-=back
-
-=cut
-
-=method name()
-
-Returns the name of the contributor.
-
-=cut
 
 has name => (
     isa => 'Str',
@@ -28,33 +22,29 @@ has name => (
     required => 1,
 );
 
-=method email()
-
-Returns the email address of the contributor.
-
-=cut
 
 has email => (
     is => 'ro',
     required => 0,
 );
 
-=method stringify()
-
-Returns the canonical string for the collaborator, of the form 
-"Full Name <email@address.org>".
-
-The object will automatically call this function is used
-as a string. 
-
-    say $_ for $stash->all_contributors;
-
-=cut
 
 sub stringify { sprintf '%s <%s>', $_[0]->name, $_[0]->email }
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Dist::Zilla::Stash::Contributors::Contributor - a Contributors stash element
+
+=head1 VERSION
+
+version 0.1.0
 
 =head1 SYNOPSIS
 
@@ -69,3 +59,41 @@ __PACKAGE__->meta->make_immutable;
 
 Collaborator objects used in the L<Dist::Zilla::Stash::Contributors> stash.
 
+=head1 METHODS
+
+=head2 new( name => $name, email => $address )
+
+Creates a new C<Dist::Zilla::Stash::Contributors::Contributor> object. 
+
+=back
+
+=head2 name()
+
+Returns the name of the contributor.
+
+=head2 email()
+
+Returns the email address of the contributor.
+
+=head2 stringify()
+
+Returns the canonical string for the collaborator, of the form 
+"Full Name <email@address.org>".
+
+The object will automatically call this function is used
+as a string. 
+
+    say $_ for $stash->all_contributors;
+
+=head1 AUTHOR
+
+Yanick Champoux <yanick@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Yanick Champoux.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
