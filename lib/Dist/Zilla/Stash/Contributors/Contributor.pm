@@ -10,7 +10,7 @@ use overload '""' => \&stringify;
 
 =method new( name => $name, email => $address )
 
-Creates a new C<Dist::Zilla::Stash::Contributors::Contributor> object. 
+Creates a new C<Dist::Zilla::Stash::Contributors::Contributor> object.
 
 =cut
 
@@ -39,11 +39,11 @@ has email => (
 
 =method stringify()
 
-Returns the canonical string for the collaborator, of the form 
+Returns the canonical string for the collaborator, of the form
 "Full Name <email@address.org>".
 
 The object will automatically call this function is used
-as a string. 
+as a string.
 
     say $_ for $stash->all_contributors;
 
@@ -57,7 +57,7 @@ __PACKAGE__->meta->make_immutable;
 =head1 SYNOPSIS
 
     if( my $contrib_stash = $self->zilla->stash_named('%Contributors') ) {
-        my @collaborators = sort { $a->email cmp $b->email } 
+        my @collaborators = sort { $a->email cmp $b->email }
             $contrib_stash->all_contributors;
 
         $self->log( "contributor: " . $_->stringify ) for @collaborators;
