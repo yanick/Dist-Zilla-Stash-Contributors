@@ -1,6 +1,7 @@
 package Dist::Zilla::Stash::Contributors;
+our $AUTHORITY = 'cpan:YANICK';
 # ABSTRACT: Stash containing list of contributors
-
+$Dist::Zilla::Stash::Contributors::VERSION = '0.1.1';
 use strict;
 use warnings;
 
@@ -19,16 +20,6 @@ has contributors => (
     },
 );
 
-=method all_contributors()
-
-Returns all contributors as C<Dist::Zilla::Stash::Contributors::Contributor>
-objects. The collaborators are sorted alphabetically.
-
-=method nbr_contributors()
-
-Returns the number of contributors.
-
-=cut
 
 sub all_contributors {
     my $self = shift;
@@ -36,14 +27,6 @@ sub all_contributors {
     return sort { $a->stringify cmp $b->stringify } $self->_all_contributors;
 }
 
-=method add_contributors( @contributors )
-
-Adds the C<@contributors> to the stash. Duplicates are filtered out. 
-
-Contributors can be L<Dist::Zilla::Stash::Contributors::Contributor> objects
-or strings of the format 'Full Name <email@address.org>'.
-
-=cut
 
 sub add_contributors {
     my ( $self, @contributors ) = @_;
@@ -68,8 +51,19 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=head1 SYNOPSIS
+=pod
 
+=encoding UTF-8
+
+=head1 NAME
+
+Dist::Zilla::Stash::Contributors - Stash containing list of contributors
+
+=head1 VERSION
+
+version 0.1.1
+
+=head1 SYNOPSIS
 
     my $contrib_stash = $self->zilla->stash_named('%Contributors');
 
@@ -104,7 +98,6 @@ this:
 
         $contrib_stash->add_contributors( @contributors );
     }
-    
 
 and plugin that use them:
 
@@ -117,7 +110,37 @@ and plugin that use them:
 
         my @contributors = $contrib_stash->all_contributors;
     }
-    
 
 And that's pretty much all you need to know beside that, internally, each contributor is represented by 
 a L<Dist::Zilla::Stash::Contributors::Contributor> object.
+
+=head1 METHODS
+
+=head2 all_contributors()
+
+Returns all contributors as C<Dist::Zilla::Stash::Contributors::Contributor>
+objects. The collaborators are sorted alphabetically.
+
+=head2 nbr_contributors()
+
+Returns the number of contributors.
+
+=head2 add_contributors( @contributors )
+
+Adds the C<@contributors> to the stash. Duplicates are filtered out. 
+
+Contributors can be L<Dist::Zilla::Stash::Contributors::Contributor> objects
+or strings of the format 'Full Name <email@address.org>'.
+
+=head1 AUTHOR
+
+Yanick Champoux <yanick@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2019, 2013 by Yanick Champoux.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
