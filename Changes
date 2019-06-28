@@ -4,6 +4,8 @@ Revision history for Dist-Zilla-Stash-Contributors
 
   - Fixed pod error as reported by CPANTS. (GH#1, Mohammad S Anwar)
 
-0.1.0     2013-03-21
+0.1.0 2013-03-21
+ - First version, unleashed on an unsuspecting world.
 
-  - First version, unleashed on an unsuspecting world.
+ [STATISTICS]
+ - code churn: 4 files changed, 19 insertions(+), 2 deletions(-)
