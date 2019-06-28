@@ -12,8 +12,6 @@ use overload '""' => \&stringify;
 
 Creates a new C<Dist::Zilla::Stash::Contributors::Contributor> object.
 
-=cut
-
 =method name()
 
 Returns the name of the contributor.
